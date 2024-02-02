@@ -1,11 +1,19 @@
 const express = require('express');
-const connectDB = require('./DBConnect.js');
 const app = express();
-const userModel = require('./DBModels/User');
+const mongoose = require('mongoose');
+require('dotenv').config();
 const userRouter = require('./routes/UserRoutes');
 const bookRouter = require('./routes/BookRouters');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
-connectDB();
+app.use(cors());
+app.use(bodyParser.json());
+
+mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => console.log("Connected to MongoDB"))
+    .catch((err) => console.log(err));
 
 app.get('/', (req, res) => {
     res.send('Home Page');
