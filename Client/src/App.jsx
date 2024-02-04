@@ -1,13 +1,13 @@
-// import BookDetail from "./pages/BookDetail"
-// import AuthorDetail from "./pages/AuthorDetail"
+import BookDetail from "./pages/BookDetail"
+import AuthorDetail from "./pages/AuthorDetail"
 import UserDetail from "./pages/UserDetail"
 
 function App() {
 
   return (
     <>
-      {/* <BookDetail />
-      <AuthorDetail /> */}
+      <BookDetail />
+      <AuthorDetail />
       <UserDetail />
     </>
   )
