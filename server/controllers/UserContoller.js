@@ -8,3 +8,20 @@ exports.getAllUsers = async (req, res) => {
         res.status(404).send(error.message);
     }
 }
+
+exports.registerUser = async (req, res) => {
+    const { name, email, enrollment, registration,
+        department, year, password } = req.body;
+
+    const createdUser = await User.create({
+        name,
+        email,
+        enrollment,
+        registration,
+        department,
+        year,
+        password
+    });
+
+    console.log(createdUser);
+}
