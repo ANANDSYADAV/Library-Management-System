@@ -17,14 +17,18 @@ const userSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    Department: {
+    department: {
         type: String,
 
     },
-    Year: {
+    year: {
         type: Number,
         required: true
     },
+    password: {
+        type: String,
+        required: true
+    }
 
 })
 
