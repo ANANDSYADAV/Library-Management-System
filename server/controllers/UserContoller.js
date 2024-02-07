@@ -1,4 +1,5 @@
 const User = require('../DBModels/User');
+const bcrypt = require('bcrypt');
 
 exports.getAllUsers = async (req, res) => {
     try {
@@ -11,17 +12,41 @@ exports.getAllUsers = async (req, res) => {
 
 exports.registerUser = async (req, res) => {
     const { name, email, enrollment, registration,
-        department, year, password } = req.body;
+        department, year } = req.body;
 
-    const createdUser = await User.create({
-        "name": name,
-        "email": email,
-        "enrollment": enrollment,
-        "registration": registration,
-        "department": department,
-        "year": year,
-        "password": password
-    });
+    try {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const createdUser = await User.create({
+            name,
+            email,
+            enrollment,
+            registration,
+            department,
+            year,
+            password: hashedPassword
+        })
+        res.send(createdUser);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error Occured");
+    }
+}
 
-    res.send(createdUser);
+exports.loginUser = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const user = await User.findOne({ email });
+        if (user == null) {
+            res.status(400).send("User Does Not Exist");
+        }
+        else if (await bcrypt.compare(password, user.password)) {
+            console.log("Login Success");
+            res.send("Login Successful");
+        } else {
+            res.send("Login First");
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error Occured");
+    }
 }
