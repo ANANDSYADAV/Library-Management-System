@@ -14,15 +14,21 @@ exports.registerUser = async (req, res) => {
     const { name, email, enrollment, registration,
         department, year } = req.body;
 
-    const createdUser = await User.create({
-        name,
-        email,
-        enrollment,
-        registration,
-        department,
-        year,
-        password
-    });
+    try {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const createdUser = await User.create({
+            name,
+            email,
+            enrollment,
+            registration,
+            department,
+            year,
+            password: hashedPassword
+        })
+        res.send(createdUser);
+    } catch (error) {
+        res.status(500).send("Error Occured");
+    }
 
     console.log(createdUser);
     try {
