@@ -32,6 +32,14 @@ const bookSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true
+    },
+    pages: {
+        type: Number,
+        required: true
+    },
+    Language: {
+        type: String,
+        required: true
     }
 
 })

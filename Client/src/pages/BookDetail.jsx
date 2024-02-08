@@ -3,6 +3,7 @@ import { FaBook } from "react-icons/fa6";
 import { IoLanguage } from "react-icons/io5";
 import { FaBuilding } from "react-icons/fa";
 import { SlCalender } from "react-icons/sl";
+import { BiSolidCategoryAlt } from "react-icons/bi";
 
 function BookDetail() {
     return (
@@ -43,8 +44,8 @@ function BookDetail() {
                         <div className='text-xl'>English</div>
                     </div>
                     <div className='flex flex-col gap-1 items-center'>
-                        <FaBuilding />
-                        <div className='text-xl'>Publication</div>
+                        <BiSolidCategoryAlt />
+                        <div className='text-xl'>Category</div>
                     </div>
                     <div className='flex flex-col gap-1 items-center'>
                         <SlCalender />
