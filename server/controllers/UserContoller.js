@@ -1,5 +1,6 @@
 const User = require('../DBModels/User');
 const bcrypt = require('bcrypt');
+
 exports.getAllUsers = async (req, res) => {
     try {
         const users = await User.find();
@@ -28,23 +29,41 @@ exports.registerUser = async (req, res) => {
     } catch (error) {
         res.status(500).send("Error Occured");
     }
+
+    console.log(createdUser);
+    try {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const createdUser = await User.create({
+            name,
+            email,
+            enrollment,
+            registration,
+            department,
+            year,
+            password: hashedPassword
+        })
+        res.send(createdUser);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error Occured");
+    }
 }
 
-exports.login = async (req, res) => {
+exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
     try {
-        const existinguser = await User.findOne({ email });
-        if (!existinguser) {
-          return res.status(404).json({ message: "User don't Exist." });
+        const user = await User.findOne({ email });
+        if (user == null) {
+            res.status(400).send("User Does Not Exist");
         }
-        const isPasswordCrt = await bcrypt.compare(password, existinguser.password);
-        if (!isPasswordCrt) {
-          return res.status(400).json({ message: "Invalid credentials" });
+        else if (await bcrypt.compare(password, user.password)) {
+            console.log("Login Success");
+            res.send("Login Successful");
+        } else {
+            res.send("Login First");
         }
-        if(isPasswordCrt){
-            return res.status(200).json({message: "login successfull"})
-        }
-    } catch {
-      res.status(500).send()
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error Occured");
     }
-  }
+}
