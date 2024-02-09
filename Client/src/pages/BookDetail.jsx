@@ -1,7 +1,5 @@
-import React from 'react'
 import { FaBook } from "react-icons/fa6";
 import { IoLanguage } from "react-icons/io5";
-import { FaBuilding } from "react-icons/fa";
 import { SlCalender } from "react-icons/sl";
 import { BiSolidCategoryAlt } from "react-icons/bi";
 
