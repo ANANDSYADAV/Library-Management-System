@@ -11,7 +11,7 @@ function Swipeit() {
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
-        const response = await fetch('https://openlibrary.org/search.json?q=the+lord+of+the+rings&offset=840');
+        const response = await fetch('https://openlibrary.org/search.json?q=the+lord+of+the+rings');
         if (!response.ok) {
           throw new Error('Failed to fetch book details');
         }
