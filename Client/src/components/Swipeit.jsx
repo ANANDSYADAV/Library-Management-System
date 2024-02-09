@@ -1,24 +1,37 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+=======
+import { useState, useEffect } from 'react';
+>>>>>>> 23d4d70435596e904f7ddac2feeff738f22b703a
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import { FreeMode, Pagination } from 'swiper/modules';
 
+import { Skeleton } from '@mui/material'
+
 function Swipeit({ category }) {
   const [books, setBooks] = useState([]);
+  // const [loading, setLoading] = useState(false);
+
+  // if(books.length > 0) {
+  //   setLoading(false);
+  // }
 
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
-        const response = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(category)}&limit=50`);
+        const response = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(category)}&limit=60`);
         if (!response.ok) {
           throw new Error('Failed to fetch book details');
         }
         const data = await response.json();
-        setBooks(data.docs); // Set the fetched book details to the state
+        // Set the fetched book details to the state
+        setBooks(data.docs);
+        setLoading(true);
         console.log(data);
       } catch (error) {
         console.error(error);
@@ -39,20 +52,49 @@ function Swipeit({ category }) {
       }}
       modules={[FreeMode, Pagination]}
     >
-      {books
-        .filter(book => book.cover_i !== undefined)
-        .map((book, index) => (
-          <SwiperSlide key={index} className='h-[400px] flex flex-col bg-blue-200'>
-            <img
-              src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
-              alt="Book Cover"
-              className='h-[350px] w-full'
-            />
-            <Link to={`/book/${encodeURIComponent(book.key)}`} className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>
-              {book.title}
-            </Link>
-          </SwiperSlide>
-        ))}
+      {books.length === 0 ?
+        (
+          <div className='flex gap-5'>
+            <div className='flex flex-col items-center'>
+              <Skeleton variant="rectangular" width={260} height={340} />
+              <Skeleton width={260} height={60} />
+            </div>
+            <div className='flex flex-col items-center'>
+              <Skeleton variant="rectangular" width={260} height={340} />
+              <Skeleton width={260} height={60} />
+            </div>
+            <div className='flex flex-col items-center'>
+              <Skeleton variant="rectangular" width={260} height={340} />
+              <Skeleton width={260} height={60} />
+            </div>
+            <div className='flex flex-col items-center'>
+              <Skeleton variant="rectangular" width={260} height={340} />
+              <Skeleton width={260} height={60} />
+            </div>
+            <div className='flex flex-col items-center'>
+              <Skeleton variant="rectangular" width={260} height={340} />
+              <Skeleton width={260} height={60} />
+            </div>
+          </div>
+        )
+        :
+        (
+          books
+            .filter(book => book.cover_i !== undefined)
+            .map((book, index) => (
+              <SwiperSlide key={index} className='h-[400px] flex flex-col bg-blue-200'>
+                <img
+                  src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
+                  alt="Book Cover"
+                  className='h-[340px] w-full'
+                />
+                <div className='h-[60px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>
+                  {book.title}
+                </div>
+              </SwiperSlide>
+            ))
+        )
+      }
     </Swiper>
   );
 }
