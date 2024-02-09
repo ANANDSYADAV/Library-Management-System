@@ -1,4 +1,5 @@
 import { MdError } from "react-icons/md";
+import { Link } from "react-router-dom"; 
 
 function Error() {
     return (
@@ -7,7 +8,7 @@ function Error() {
             <div className="text-2xl">Oops! Page not found.</div>
             <div className="text-2xl">404</div>
             <p className="text-xl">We cannot find the page you are looking for.</p>
-            <a href="#" className="bg-gray-700 text-white py-2 px-3 hover:bg-slate-500 rounded-lg">Go back home</a>
+            <Link to="/" className="bg-gray-700 text-white py-2 px-3 hover:bg-slate-500 rounded-lg">Go back home</Link>
         </div>
     )
 }
