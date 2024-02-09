@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -46,9 +48,9 @@ function Swipeit({ category }) {
               alt="Book Cover"
               className='h-[350px] w-full'
             />
-            <div className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>
+            <Link to={`/book/${encodeURIComponent(book.key)}`} className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>
               {book.title}
-            </div>
+            </Link>
           </SwiperSlide>
         ))}
     </Swiper>
