@@ -15,11 +15,6 @@ import { Skeleton } from '@mui/material'
 
 function Swipeit({ category }) {
   const [books, setBooks] = useState([]);
-  // const [loading, setLoading] = useState(false);
-
-  // if(books.length > 0) {
-  //   setLoading(false);
-  // }
 
   useEffect(() => {
     const fetchBookDetails = async () => {
@@ -31,7 +26,6 @@ function Swipeit({ category }) {
         const data = await response.json();
         // Set the fetched book details to the state
         setBooks(data.docs);
-        setLoading(true);
         console.log(data);
       } catch (error) {
         console.error(error);
