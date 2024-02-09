@@ -1,14 +1,30 @@
+import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
-
-// import required modules
 import { FreeMode, Pagination } from 'swiper/modules';
 
 function Swipeit() {
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    const fetchBookDetails = async () => {
+      try {
+        const response = await fetch('https://openlibrary.org/search.json?q=the+lord+of+the+rings&offset=840');
+        if (!response.ok) {
+          throw new Error('Failed to fetch book details');
+        }
+        const data = await response.json();
+        setBooks(data.docs); // Set the fetched book details to the state
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchBookDetails();
+  }, []); // Empty dependency array to run the effect only once
+
   return (
     <Swiper
       slidesPerView={5}
@@ -20,98 +36,20 @@ function Swipeit() {
       }}
       modules={[FreeMode, Pagination]}
     >
-      <SwiperSlide className='h-[400px] flex flex-col bg-blue-200'>
-        <img src="https://images.pexels.com/photos/19168627/pexels-photo-19168627/free-photo-of-a-balcony-with-flowers-on-it-and-a-balcony-with-a-balcony.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Book Cover"
-          className='h-[350px] w-full'
-        />
-        <div className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>View Details</div>
-      </SwiperSlide>
-      <SwiperSlide className='h-[400px] flex flex-col items-center bg-blue-200 justify-center'>
-        <img src="https://images.pexels.com/photos/19168627/pexels-photo-19168627/free-photo-of-a-balcony-with-flowers-on-it-and-a-balcony-with-a-balcony.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Book Cover"
-          className='h-[350px] w-full'
-        />
-        <div className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>View Details</div>
-      </SwiperSlide>
-      <SwiperSlide className='h-[400px] flex flex-col items-center bg-blue-200 justify-center'>
-        <img src="https://images.pexels.com/photos/19168627/pexels-photo-19168627/free-photo-of-a-balcony-with-flowers-on-it-and-a-balcony-with-a-balcony.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Book Cover"
-          className='h-[350px] w-full'
-        />
-        <div className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>View Details</div>
-      </SwiperSlide>
-      <SwiperSlide className='h-[400px] flex flex-col items-center bg-blue-200 justify-center'>
-        <img src="https://images.pexels.com/photos/19168627/pexels-photo-19168627/free-photo-of-a-balcony-with-flowers-on-it-and-a-balcony-with-a-balcony.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Book Cover"
-          className='h-[350px] w-full'
-        />
-        <div className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>View Details</div>
-      </SwiperSlide>
-      <SwiperSlide className='h-[400px] flex flex-col items-center bg-blue-200 justify-center'>
-        <img src="https://images.pexels.com/photos/19168627/pexels-photo-19168627/free-photo-of-a-balcony-with-flowers-on-it-and-a-balcony-with-a-balcony.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Book Cover"
-          className='h-[350px] w-full'
-        />
-        <div className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>View Details</div>
-      </SwiperSlide>
-      <SwiperSlide className='h-[400px] flex flex-col items-center bg-blue-200 justify-center'>
-        <img src="https://images.pexels.com/photos/19168627/pexels-photo-19168627/free-photo-of-a-balcony-with-flowers-on-it-and-a-balcony-with-a-balcony.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Book Cover"
-          className='h-[350px] w-full'
-        />
-        <div className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>View Details</div>
-      </SwiperSlide>
-      <SwiperSlide className='h-[400px] flex flex-col items-center bg-blue-200 justify-center'>
-        <img src="https://images.pexels.com/photos/19168627/pexels-photo-19168627/free-photo-of-a-balcony-with-flowers-on-it-and-a-balcony-with-a-balcony.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Book Cover"
-          className='h-[350px] w-full'
-        />
-        <div className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>View Details</div>
-      </SwiperSlide>
-      <SwiperSlide className='h-[400px] flex flex-col items-center bg-blue-200 justify-center'>
-        <img src="https://images.pexels.com/photos/19168627/pexels-photo-19168627/free-photo-of-a-balcony-with-flowers-on-it-and-a-balcony-with-a-balcony.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Book Cover"
-          className='h-[350px] w-full'
-        />
-        <div className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>View Details</div>
-      </SwiperSlide>
-      <SwiperSlide className='h-[400px] flex flex-col items-center bg-blue-200 justify-center'>
-        <img src="https://images.pexels.com/photos/19168627/pexels-photo-19168627/free-photo-of-a-balcony-with-flowers-on-it-and-a-balcony-with-a-balcony.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Book Cover"
-          className='h-[350px] w-full'
-        />
-        <div className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>View Details</div>
-      </SwiperSlide>
-      <SwiperSlide className='h-[400px] flex flex-col items-center bg-blue-200 justify-center'>
-        <img src="https://images.pexels.com/photos/19168627/pexels-photo-19168627/free-photo-of-a-balcony-with-flowers-on-it-and-a-balcony-with-a-balcony.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Book Cover"
-          className='h-[350px] w-full'
-        />
-        <div className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>View Details</div>
-      </SwiperSlide>
-      <SwiperSlide className='h-[400px] flex flex-col items-center bg-blue-200 justify-center'>
-        <img src="https://images.pexels.com/photos/19168627/pexels-photo-19168627/free-photo-of-a-balcony-with-flowers-on-it-and-a-balcony-with-a-balcony.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Book Cover"
-          className='h-[350px] w-full'
-        />
-        <div className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>View Details</div>
-      </SwiperSlide>
-      <SwiperSlide className='h-[400px] flex flex-col items-center bg-blue-200 justify-center'>
-        <img src="https://images.pexels.com/photos/19168627/pexels-photo-19168627/free-photo-of-a-balcony-with-flowers-on-it-and-a-balcony-with-a-balcony.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Book Cover"
-          className='h-[350px] w-full'
-        />
-        <div className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>View Details</div>
-      </SwiperSlide>
-      <SwiperSlide className='h-[400px] flex flex-col items-center bg-blue-200 justify-center'>
-        <img src="https://images.pexels.com/photos/19168627/pexels-photo-19168627/free-photo-of-a-balcony-with-flowers-on-it-and-a-balcony-with-a-balcony.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Book Cover"
-          className='h-[350px] w-full'
-        />
-        <div className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>View Details</div>
-      </SwiperSlide>
-      <SwiperSlide className='h-[400px] flex flex-col items-center bg-blue-200 justify-center'>
-        <img src="https://images.pexels.com/photos/19168627/pexels-photo-19168627/free-photo-of-a-balcony-with-flowers-on-it-and-a-balcony-with-a-balcony.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Book Cover"
-          className='h-[350px] w-full'
-        />
-        <div className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>View Details</div>
-      </SwiperSlide>
-      <SwiperSlide className='h-[400px] flex flex-col items-center bg-blue-200 justify-center'>
-        <img src="https://images.pexels.com/photos/19168627/pexels-photo-19168627/free-photo-of-a-balcony-with-flowers-on-it-and-a-balcony-with-a-balcony.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Book Cover"
-          className='h-[350px] w-full'
-        />
-        <div className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>View Details</div>
-      </SwiperSlide>
+      {books.map((book, index) => (
+        <SwiperSlide key={index} className='h-[400px] flex flex-col bg-blue-200'>
+          <img
+            src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
+            alt="Book Cover"
+            className='h-[350px] w-full'
+          />
+          <div className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>
+            {book.title}
+          </div>
+        </SwiperSlide>
+      ))}
     </Swiper>
-  )
+  );
 }
 
-export default Swipeit
+export default Swipeit;
