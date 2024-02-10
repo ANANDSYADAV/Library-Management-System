@@ -1,64 +1,111 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { FaBookOpen } from 'react-icons/fa';
 
-function LoginForm() {
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+
+import { Link } from 'react-router-dom';
+
+export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [inputType, setInputType] = useState('password');
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // Perform form submission logic here, such as sending data to a server
         console.log('Email:', email);
         console.log('Password:', password);
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-md w-full space-y-8">
-                <div>
-                    <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
+        <>
+            <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+                <div className="sm:mx-auto sm:w-full sm:max-w-sm flex flex-col items-center">
+                    <FaBookOpen className="text-gray-700 text-3xl" />
+                    <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                        Sign in to your account
+                    </h2>
                 </div>
-                <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-                    <div className="rounded-md shadow-sm -space-y-px">
+
+                <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                    <form className="space-y-6" onSubmit={handleSubmit}>
                         <div>
-                            <label htmlFor="email" className="sr-only">Email address</label>
-                            <input
-                                id="email"
-                                name="email"
-                                type="email"
-                                autoComplete="email"
-                                required
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                placeholder="Email address"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
+                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                                Email address
+                            </label>
+                            <div className="mt-2">
+                                <input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    autoComplete="email"
+                                    required
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6 text-2xl px-2"
+                                />
+                            </div>
                         </div>
+
                         <div>
-                            <label htmlFor="password" className="sr-only">Password</label>
-                            <input
-                                id="password"
-                                name="password"
-                                type="password"
-                                autoComplete="current-password"
-                                required
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                placeholder="Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
+                            <div className="flex items-center justify-between">
+                                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Password
+                                </label>
+                                <div className="text-sm">
+                                    <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                                        Forgot password?
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="mt-2 flex gap-2 items-center">
+                                <input
+                                    id="password"
+                                    name="password"
+                                    type={inputType}
+                                    autoComplete="current-password"
+                                    required
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6 text-2xl px-2"
+                                />
+
+                                {inputType === 'password' ?
+                                    (<FaEye className='text-2xl cursor-pointer'
+                                        onClick={() => {
+                                            setInputType('text');
+                                        }}
+                                    />)
+                                    :
+                                    (<FaEyeSlash className='text-2xl cursor-pointer'
+                                        onClick={() => {
+                                            setInputType('password');
+                                        }}
+                                    />)
+                                }
+
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <button
-                            type="submit"
-                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                            Sign in
-                        </button>
-                    </div>
-                </form>
+
+                        <div>
+                            <button
+                                type="submit"
+                                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            >
+                                Sign in
+                            </button>
+                        </div>
+                    </form>
+
+                    <p className="mt-10 text-center text-sm text-gray-500">
+                        Don't have an account?{' '}
+                        <Link to='/signup' className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                            Sign up
+                        </Link>
+                    </p>
+                </div>
             </div>
-        </div>
+        </>
     );
 }
-
-export default LoginForm;
