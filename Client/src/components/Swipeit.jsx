@@ -7,7 +7,7 @@ import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import { FreeMode, Pagination } from 'swiper/modules';
 
-import { Skeleton } from '@mui/material'
+import SkeletonHome from './SkeletonHome';
 
 function Swipeit({ category }) {
   const [books, setBooks] = useState([]);
@@ -43,28 +43,7 @@ function Swipeit({ category }) {
     >
       {books.length === 0 ?
         (
-          <div className='flex gap-5'>
-            <div className='flex flex-col items-center'>
-              <Skeleton variant="rectangular" width={260} height={340} />
-              <Skeleton width={260} height={60} />
-            </div>
-            <div className='flex flex-col items-center'>
-              <Skeleton variant="rectangular" width={260} height={340} />
-              <Skeleton width={260} height={60} />
-            </div>
-            <div className='flex flex-col items-center'>
-              <Skeleton variant="rectangular" width={260} height={340} />
-              <Skeleton width={260} height={60} />
-            </div>
-            <div className='flex flex-col items-center'>
-              <Skeleton variant="rectangular" width={260} height={340} />
-              <Skeleton width={260} height={60} />
-            </div>
-            <div className='flex flex-col items-center'>
-              <Skeleton variant="rectangular" width={260} height={340} />
-              <Skeleton width={260} height={60} />
-            </div>
-          </div>
+          <SkeletonHome />
         )
         :
         (
@@ -77,7 +56,7 @@ function Swipeit({ category }) {
                   alt="Book Cover"
                   className='h-[350px] w-full'
                 />
-                <Link to={`/book/${encodeURIComponent(book.key)}`} className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>
+                <Link to={`/book/${encodeURIComponent(book.key)}/${encodeURIComponent(book.cover_i)}`} className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>
                   {book.title}
                 </Link>
               </SwiperSlide>

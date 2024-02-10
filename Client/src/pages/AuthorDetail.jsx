@@ -1,4 +1,3 @@
-import React from 'react'
 import BookCard from '../components/BookCard'
 import { RiVerifiedBadgeFill } from 'react-icons/ri'
 
