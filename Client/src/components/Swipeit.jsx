@@ -77,7 +77,7 @@ function Swipeit({ category }) {
                   alt="Book Cover"
                   className='h-[350px] w-full'
                 />
-                <Link to={`/book/${encodeURIComponent(book.key)}`} className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>
+                <Link to={`/book/${encodeURIComponent(book.key)}/${encodeURIComponent(book.cover_i)}`} className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>
                   {book.title}
                 </Link>
               </SwiperSlide>

@@ -2,15 +2,42 @@ import { FaBook } from "react-icons/fa6";
 import { IoLanguage } from "react-icons/io5";
 import { SlCalender } from "react-icons/sl";
 import { BiSolidCategoryAlt } from "react-icons/bi";
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 function BookDetail() {
+    const { bookid , cover_i } = useParams();
+    const [bookDetails, setBookDetails] = useState(null);
+
+    useEffect(() => {
+        const fetchBookDetails = async () => {
+            try {
+                const response = await fetch(`https://openlibrary.org${bookid}.json`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch book details');
+                }
+                const data = await response.json();
+                console.log(data);
+                setBookDetails(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchBookDetails();
+    }, [bookid]);
+
+    if (!bookDetails) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <div className='flex flex-col items-center'>
             <div>
                 <div className='flex w-[90%] justify-center mt-12'>
                     <div className='h-[500px] w-[300px]'>
                         <img
-                            src="https://images.pexels.com/photos/19601923/pexels-photo-19601923/free-photo-of-young-woman-wearing-an-ao-dai-dress-and-holding-a-fan.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+                            src={`https://covers.openlibrary.org/b/id/${bookDetails.covers[0]}-L.jpg`}
                             alt="Cover Page"
                             style={{ overflow: "hidden" }}
                             onMouseOver={(e) => (e.currentTarget.style = { transform: "scale(1.25)", overflow: "hidden" })}
@@ -19,13 +46,12 @@ function BookDetail() {
                     </div>
                     <div className='flex flex-col w-[50%] gap-5 ml-7'>
                         <div className='flex flex-col items-center gap-3'>
-                            <div className='text-4xl font-bold'>BOOK NAME</div>
-                            <div className='text-2xl'>by AUTHOR NAME</div>
+                            <div className='text-4xl font-bold'>{bookDetails.title}</div>
+                            {bookDetails.authors && bookDetails.authors.length > 0 && <div className='text-2xl'>by {bookDetails.authors[0].author.key}</div>}
                             <div>RATINGS 10/10</div>
                         </div>
                         <div>
-                            BOOK DESCRIPTION
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrial standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            {bookDetails.description}
                         </div>
                     </div>
                 </div>
@@ -35,19 +61,19 @@ function BookDetail() {
 
                     <div className='flex flex-col gap-1 items-center'>
                         <FaBook />
-                        <div className='text-xl'>200 Pages</div>
+                        <div className='text-xl'>{bookDetails.number_of_pages} Pages</div>
                     </div>
                     <div className='flex flex-col gap-1 items-center'>
                         <IoLanguage />
-                        <div className='text-xl'>English</div>
+                        <div className='text-xl'>{bookDetails.language}</div>
                     </div>
                     <div className='flex flex-col gap-1 items-center'>
                         <BiSolidCategoryAlt />
-                        <div className='text-xl'>Category</div>
+                        <div className='text-xl'>{bookDetails.subjects && bookDetails.subjects.length > 0 ? bookDetails.subjects[0] : 'No category'}</div>
                     </div>
                     <div className='flex flex-col gap-1 items-center'>
                         <SlCalender />
-                        <div className='text-xl'>Publication Date</div>
+                        <div className='text-xl'>{bookDetails.first_publish_date}</div>
                     </div>
 
                 </div>
@@ -60,4 +86,4 @@ function BookDetail() {
     )
 }
 
-export default BookDetail
+export default BookDetail;
