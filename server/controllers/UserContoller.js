@@ -12,10 +12,10 @@ exports.getAllUsers = async (req, res) => {
 
 exports.registerUser = async (req, res) => {
     const { name, email, enrollment, registration,
-        department, year } = req.body;
+        department, year, password } = req.body;
 
     try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
         const createdUser = await User.create({
             name,
             email,
@@ -25,27 +25,11 @@ exports.registerUser = async (req, res) => {
             year,
             password: hashedPassword
         })
-        res.send(createdUser);
-    } catch (error) {
-        res.status(500).send("Error Occured");
-    }
-
-    console.log(createdUser);
-    try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        const createdUser = await User.create({
-            name,
-            email,
-            enrollment,
-            registration,
-            department,
-            year,
-            password: hashedPassword
-        })
-        res.send(createdUser);
+        console.log(createdUser); 
+        res.status(201).send(createdUser);
     } catch (error) {
         console.log(error);
-        res.status(500).send("Error Occured");
+        res.status(500).send("Error Occurred");
     }
 }
 

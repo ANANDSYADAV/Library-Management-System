@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
 
     },
     year: {
-        type: Number,
+        type: String,
         required: true
     },
     password: {
