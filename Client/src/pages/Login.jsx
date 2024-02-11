@@ -1,23 +1,48 @@
 import { useState } from 'react';
 import { FaBookOpen } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+import "react-toastify/dist/ReactToastify.css";
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleSubmit = (e) => {
+  const [inputType, setInputType] = useState('password');
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Perform form submission logic here, such as sending data to a server
-    console.log('Email:', email);
-    console.log('Password:', password);
+
+    try {
+      const response = await fetch('http://localhost:3000/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      if (response.ok) {
+        navigate('/', { state: { signInSuccess: true } });
+      } else {
+        alert('Wrong credentials');
+        console.error('Login failed');
+      }
+    } catch (error) {
+      console.error('Error occurred during login:', error);
+    }
   };
 
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm flex flex-col items-center">
-          <FaBookOpen className="text-3xl" />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <FaBookOpen className="text-gray-700 text-3xl" />
+          <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
           </h2>
         </div>
@@ -37,7 +62,7 @@ export default function Login() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6 text-2xl px-2"
                 />
               </div>
             </div>
@@ -53,17 +78,32 @@ export default function Login() {
                   </a>
                 </div>
               </div>
-              <div className="mt-2">
+              <div className="mt-2 flex gap-2 items-center">
                 <input
                   id="password"
                   name="password"
-                  type="password"
+                  type={inputType}
                   autoComplete="current-password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6 text-2xl px-2"
                 />
+
+                {inputType === 'password' ?
+                  (<FaEye className='text-2xl cursor-pointer'
+                    onClick={() => {
+                      setInputType('text');
+                    }}
+                  />)
+                  :
+                  (<FaEyeSlash className='text-2xl cursor-pointer'
+                    onClick={() => {
+                      setInputType('password');
+                    }}
+                  />)
+                }
+
               </div>
             </div>
 
@@ -79,9 +119,9 @@ export default function Login() {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Don't have an account?{' '}
-            <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+            <Link to='/signup' className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               Sign up
-            </a>
+            </Link>
           </p>
         </div>
       </div>
