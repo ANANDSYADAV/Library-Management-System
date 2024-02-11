@@ -60,7 +60,7 @@ function BookDetail() {
                     </div>
                     <div className='flex flex-col gap-1 items-center'>
                         <IoLanguage />
-                        <div className='text-xl'>{bookDetails.language}</div>
+                        <div className='text-xl'>English</div>
                     </div>
                     <div className='flex flex-col gap-1 items-center'>
                         <BiSolidCategoryAlt />
