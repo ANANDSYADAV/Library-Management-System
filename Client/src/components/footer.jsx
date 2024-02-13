@@ -1,5 +1,5 @@
-import React from 'react';
 import { FiMail, FiPhone } from 'react-icons/fi';
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
     return (
@@ -25,14 +25,14 @@ const Footer = () => {
                             <ul>
                                 <li><a href="#">Our Story</a></li>
                                 <li><a href="#">Mission & Vision</a></li>
-                                <li><a href="#">Team</a></li>
+                                <li><Link to="/team">Team</Link></li>
                             </ul>
                         </div>
 
                         {/* Contact Us */}
-                        <div>
+                        <div className='flex flex-col gap-2'>
                             <h3 className="text-lg font-semibold mb-2">Contact Us</h3>
-                            <div className="flex items-center mb-2">
+                            <div className="flex items-center">
                                 <div className="icon mr-3">
                                     <FiMail />
                                 </div>
@@ -49,6 +49,24 @@ const Footer = () => {
                                 </div>
                                 <div className="phone pr-2">Phone</div>
                                 <div className="text">+917737606697</div>
+                            </div>
+                            <div className="flex items-center">
+                                <div className="icon mr-3">
+                                    <FiMail />
+                                </div>
+                                <div className="email pr-5">Email</div>
+                                <div className="em1">
+                                    <a href="mailto:anandyad2004@gmail.com" className="text-white-600 hover:underline">
+                                        anandyad2004@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="flex items-center">
+                                <div className="icon mr-3">
+                                    <FiPhone />
+                                </div>
+                                <div className="phone pr-2">Phone</div>
+                                <div className="text">+918528564602</div>
                             </div>
                         </div>
                     </div>
