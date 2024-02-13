@@ -15,12 +15,14 @@ export default function SignUp() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [inputType1, setInputType1] = useState('password');
     const [inputType2, setInputType2] = useState('password');
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
       e.preventDefault();
 
       if (password !== confirmPassword) {
+        setErrorMessage('Passwords do not match');
           console.error('Passwords do not match');
           return;
       }
@@ -234,6 +236,7 @@ export default function SignUp() {
                                     />)
                                 }
                             </div>
+                            {errorMessage && <p className="text-red-500 text-sm mt-1">{errorMessage}</p>}
                         </div>
 
                         <div>
@@ -248,7 +251,7 @@ export default function SignUp() {
 
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Already have an account?{' '}
-                        <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                        <a href="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                             Sign in
                         </a>
                     </p>
