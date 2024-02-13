@@ -18,7 +18,7 @@ export function SwipeCS() {
 
   useEffect(() => {
     dispatch(fetchCSBooks('Computer Science'));
-  });
+  }, []);
 
   return (
     <Swiper

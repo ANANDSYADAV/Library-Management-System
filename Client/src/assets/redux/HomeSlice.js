@@ -47,6 +47,7 @@ const initialState = {
     Health: [],
     Sports: [],
     mobileMenu: false,
+    user: ""
 }
 
 const HomeSlice = createSlice({
@@ -56,16 +57,36 @@ const HomeSlice = createSlice({
         builder.addCase(fetchCSBooks.fulfilled, (state, action) => {
             state.ComputerScience = action.payload;
         }),
-        builder.addCase(fetchFictionBooks.fulfilled, (state, action) => {
-            state.Fiction = action.payload;
-        }),
-        builder.addCase(fetchHealthBooks.fulfilled, (state, action) => {
-            state.Health = action.payload;
-        }),
-        builder.addCase(fetchSportsBooks.fulfilled, (state, action) => {
-            state.Sports = action.payload;
-        })
+            builder.addCase(fetchFictionBooks.fulfilled, (state, action) => {
+                state.Fiction = action.payload;
+            }),
+            builder.addCase(fetchHealthBooks.fulfilled, (state, action) => {
+                state.Health = action.payload;
+            }),
+            builder.addCase(fetchSportsBooks.fulfilled, (state, action) => {
+                state.Sports = action.payload;
+            })
     }
 });
 
-export default HomeSlice.reducer;
+const currentUserSlice = createSlice({
+    name: 'currentUser',
+    initialState,
+    reducers: {
+        login: (state, action) => {
+            state.user = action.payload;
+        },
+        logout: (state) => {
+            state.user = null;
+        },
+    },
+});
+
+export const { login, logout } = currentUserSlice.actions;
+
+export const selectCurrentUser = (state) => state.currentUser.user;
+
+
+
+export const { reducer: homeReducer } = HomeSlice;
+export const { reducer: currentUserReducer } = currentUserSlice;
