@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -9,20 +8,10 @@ import { FreeMode, Pagination } from 'swiper/modules';
 
 import SkeletonHome from './SkeletonHome';
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 export function SwipeCS() {
-<<<<<<< HEAD
-  // const dispatch = useDispatch();
-  // const [cS, setCS] = useState([]); 
-  const ComputerScience = useSelector((state) => state.ComputerScience);
-  // setCS(ComputerScience);
-=======
-  const dispatch = useDispatch();
-  const ComputerScience = useSelector((state) => state.ComputerScience ?? []);
->>>>>>> 2e9b5d3b18bc4b1e4b03a7270cebc257fcdad44e
-
-  
+  const { ComputerScience, loading } = useSelector((state) => state.HomeReducer);
 
   return (
     <Swiper
@@ -36,7 +25,7 @@ export function SwipeCS() {
       modules={[FreeMode, Pagination]}
     >
 
-      {ComputerScience.length === 0 ?
+      {loading === true ?
         (
           <SkeletonHome />
         )
@@ -63,17 +52,7 @@ export function SwipeCS() {
 }
 
 export function SwipeFiction() {
-<<<<<<< HEAD
-  // const dispatch = useDispatch();
-  const Fiction = useSelector((state) => state.Fiction);
-=======
-  const dispatch = useDispatch();
-  const Fiction = useSelector((state) => state.Fiction ?? []);
->>>>>>> 2e9b5d3b18bc4b1e4b03a7270cebc257fcdad44e
-
-  // useEffect(() => {
-  //   dispatch(fetchFictionBooks('Fiction'));
-  // });
+  const { Fiction, loading } = useSelector((state) => state.HomeReducer);
 
   return (
     <Swiper
@@ -87,7 +66,7 @@ export function SwipeFiction() {
       modules={[FreeMode, Pagination]}
     >
 
-      {Fiction.length === 0 ?
+      {loading === true ?
         (
           <SkeletonHome />
         )
@@ -114,17 +93,7 @@ export function SwipeFiction() {
 }
 
 export function SwipeHealth() {
-<<<<<<< HEAD
-  // const dispatch = useDispatch();
-  const Health = useSelector((state) => state.Health);
-=======
-  const dispatch = useDispatch();
-  const Health = useSelector((state) => state.Health ?? []);
->>>>>>> 2e9b5d3b18bc4b1e4b03a7270cebc257fcdad44e
-
-  // useEffect(() => {
-  //   dispatch(fetchHealthBooks('Health'));
-  // });
+  const { Health, loading } = useSelector((state) => state.HomeReducer);
 
   return (
     <Swiper
@@ -138,7 +107,7 @@ export function SwipeHealth() {
       modules={[FreeMode, Pagination]}
     >
 
-      {Health.length === 0 ?
+      {loading === true ?
         (
           <SkeletonHome />
         )
@@ -165,17 +134,7 @@ export function SwipeHealth() {
 }
 
 export function SwipeSports() {
-<<<<<<< HEAD
-  // const dispatch = useDispatch();
-  const Sports = useSelector((state) => state.Sports);
-=======
-  const dispatch = useDispatch();
-  const Sports = useSelector((state) => state.Sports ?? []);
->>>>>>> 2e9b5d3b18bc4b1e4b03a7270cebc257fcdad44e
-
-  // useEffect(() => {
-  //   dispatch(fetchSportsBooks('Sports'));
-  // });
+  const { Sports, loading } = useSelector((state) => state.HomeReducer);
 
   return (
     <Swiper
@@ -189,7 +148,7 @@ export function SwipeSports() {
       modules={[FreeMode, Pagination]}
     >
 
-      {Sports.length === 0 ?
+      {loading === true ?
         (
           <SkeletonHome />
         )
