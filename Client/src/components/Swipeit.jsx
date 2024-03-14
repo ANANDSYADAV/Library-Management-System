@@ -14,7 +14,7 @@ import { fetchCSBooks, fetchFictionBooks, fetchHealthBooks, fetchSportsBooks } f
 
 export function SwipeCS() {
   const dispatch = useDispatch();
-  const ComputerScience = useSelector((state) => state.ComputerScience);
+  const ComputerScience = useSelector((state) => state.ComputerScience ?? []);
 
   useEffect(() => {
     dispatch(fetchCSBooks('Computer Science'));
@@ -60,7 +60,7 @@ export function SwipeCS() {
 
 export function SwipeFiction() {
   const dispatch = useDispatch();
-  const Fiction = useSelector((state) => state.Fiction);
+  const Fiction = useSelector((state) => state.Fiction ?? []);
 
   useEffect(() => {
     dispatch(fetchFictionBooks('Fiction'));
@@ -106,7 +106,7 @@ export function SwipeFiction() {
 
 export function SwipeHealth() {
   const dispatch = useDispatch();
-  const Health = useSelector((state) => state.Health);
+  const Health = useSelector((state) => state.Health ?? []);
 
   useEffect(() => {
     dispatch(fetchHealthBooks('Health'));
@@ -152,7 +152,7 @@ export function SwipeHealth() {
 
 export function SwipeSports() {
   const dispatch = useDispatch();
-  const Sports = useSelector((state) => state.Sports);
+  const Sports = useSelector((state) => state.Sports ?? []);
 
   useEffect(() => {
     dispatch(fetchSportsBooks('Sports'));

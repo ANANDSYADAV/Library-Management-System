@@ -3,7 +3,8 @@ import { FaBookOpen } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-
+import { useDispatch } from 'react-redux';
+import { signUp } from '../assets/redux/HomeSlice';
 export default function SignUp() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -17,42 +18,44 @@ export default function SignUp() {
     const [inputType2, setInputType2] = useState('password');
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
     const handleSubmit = async (e) => {
-      e.preventDefault();
+        e.preventDefault();
 
-      if (password !== confirmPassword) {
-        setErrorMessage('Passwords do not match');
-          console.error('Passwords do not match');
-          return;
-      }
+        if (password !== confirmPassword) {
+            setErrorMessage('Passwords do not match');
+            console.error('Passwords do not match');
+            return;
+        }
 
-      try {
-          const response = await fetch('http://localhost:3000/user/registerUser', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                  name,
-                  email,
-                  enrollment,
-                  registration,
-                  department,
-                  year,
-                  password,
-              }),
-          });
+        try {
+            const response = await fetch('http://localhost:3000/user/registerUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    enrollment,
+                    registration,
+                    department,
+                    year,
+                    password,
+                }),
+            });
 
-          if (response.ok) {
-            navigate('/', { state: { signUpSuccess: true } });
-          } else {
-              console.error('Signup failed');
-          }
-      } catch (error) {
-          console.error('Error occurred during signup:', error);
-      }
-  };
+            if (response.ok) {
+                const userData = await response.json();
+                dispatch(signUp(userData));
+                navigate('/', { state: { signUpSuccess: true } });
+            } else {
+                console.error('Signup failed');
+            }
+        } catch (error) {
+            console.error('Error occurred during signup:', error);
+        }
+    };
 
     return (
         <>

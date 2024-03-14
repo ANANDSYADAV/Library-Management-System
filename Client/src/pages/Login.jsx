@@ -5,13 +5,18 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../assets/redux/HomeSlice';
+
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [inputType, setInputType] = useState('password');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     try {
@@ -27,6 +32,8 @@ export default function Login() {
       });
 
       if (response.ok) {
+        const userData = await response.json();
+        dispatch(login(userData));
         navigate('/', { state: { signInSuccess: true } });
       } else {
         alert('Wrong credentials');
