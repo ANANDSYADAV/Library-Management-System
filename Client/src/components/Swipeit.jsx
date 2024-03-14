@@ -25,7 +25,7 @@ export function SwipeCS() {
       modules={[FreeMode, Pagination]}
     >
 
-      {loading === true ?
+      {loading !== false ?
         (
           <SkeletonHome />
         )
@@ -66,27 +66,28 @@ export function SwipeFiction() {
       modules={[FreeMode, Pagination]}
     >
 
-      {loading === true ?
-        (
-          <SkeletonHome />
-        )
-        :
-        (
-          Fiction
-            .filter(book => book.cover_i !== undefined)
-            .map((book, index) => (
-              <SwiperSlide key={index} className='h-[400px] flex flex-col bg-blue-200'>
-                <img
-                  src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
-                  alt="Book Cover"
-                  className='h-[350px] w-full'
-                />
-                <Link to={`/book/${encodeURIComponent(book.key)}/${encodeURIComponent(book.cover_i)}`} className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>
-                  {book.title}
-                </Link>
-              </SwiperSlide>
-            ))
-        )
+      {
+        loading === false ?
+          (
+            Fiction
+              .filter(book => book.cover_i !== undefined)
+              .map((book, index) => (
+                <SwiperSlide key={index} className='h-[400px] flex flex-col bg-blue-200'>
+                  <img
+                    src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
+                    alt="Book Cover"
+                    className='h-[350px] w-full'
+                  />
+                  <Link to={`/book/${encodeURIComponent(book.key)}/${encodeURIComponent(book.cover_i)}`} className='h-[50px] w-full flex justify-center items-center cursor-pointer hover:bg-black hover:text-white'>
+                    {book.title}
+                  </Link>
+                </SwiperSlide>
+              ))
+          )
+          :
+          (
+            <SkeletonHome />
+          )
       }
     </Swiper>
   );
@@ -107,7 +108,7 @@ export function SwipeHealth() {
       modules={[FreeMode, Pagination]}
     >
 
-      {loading === true ?
+      {loading !== false ?
         (
           <SkeletonHome />
         )
@@ -148,7 +149,7 @@ export function SwipeSports() {
       modules={[FreeMode, Pagination]}
     >
 
-      {loading === true ?
+      {loading !== false ?
         (
           <SkeletonHome />
         )

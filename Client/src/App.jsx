@@ -21,7 +21,6 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(changeLoadingState(true));
     dispatch(fetchCSBooks('Computer Science'));
     dispatch(fetchFictionBooks('Fiction'));
     dispatch(fetchHealthBooks('Health'));

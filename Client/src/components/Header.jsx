@@ -10,23 +10,25 @@ function Header() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const token = currentUser?.token;
-        if (token) {
-            const decodedToken = jwtDecode(token);
-            if (decodedToken.exp * 1000 < new Date().getTime()) {
-                handleLogout();
-            }
-        } else {
-            const profile = JSON.parse(localStorage.getItem("Profile"));
-            if (profile) {
-                dispatch(login(profile)); // Dispatch login action to set the current user
-            }
-        }
-    }, [currentUser?.token, dispatch, navigate]); // Include currentUser?.token in the dependency array
+    const token = localStorage.getItem('Token');
+
+    // useEffect(() => {
+    //     const token = localStorage.getItem('Token');
+    //     if (token) {
+    //         const decodedToken = jwtDecode(token);
+    //         if (decodedToken.exp * 1000 < new Date().getTime()) {
+    //             handleLogout();
+    //         }
+    //     } else {
+    //         const profile = JSON.parse(localStorage.getItem("Profile"));
+    //         if (profile) {
+    //             dispatch(login(profile)); // Dispatch login action to set the current user
+    //         }
+    //     }
+    // }, [currentUser?.token, dispatch, navigate]); // Include currentUser?.token in the dependency array
 
     const handleLogout = () => {
-        dispatch(logout());
+        localStorage.removeItem('Token');
         navigate("/");
     };
 
@@ -39,7 +41,7 @@ function Header() {
                 </div>
             </Link>
             <div className="flex gap-10 items-center absolute right-10 font-semibold font-serif text-2xl">
-                {currentUser ? ( // Check if currentUser exists
+                {token ? ( // Check if currentUser exists
                     <>
                         <Link to={`/user/${currentUser?.result?._id}`}>
                             <div className="bg-red-500 h-10 w-10 flex justify-center items-center rounded-full cursor-pointer">

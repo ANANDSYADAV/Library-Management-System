@@ -1,6 +1,7 @@
 const User = require('../DBModels/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
 exports.getAllUsers = async (req, res) => {
     try {
         const users = await User.find();
@@ -36,9 +37,9 @@ exports.registerUser = async (req, res) => {
         );
         console.log(createdUser);
         res.status(200).json({ result: createdUser, token });
-       
+
     } catch (error) {
-        console.log(error);
+        console.log("Error Msg: ", error);
         res.status(500).send("Error Occurred");
     }
 }
@@ -59,10 +60,10 @@ exports.loginUser = async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: "1h" }
         );
+
         res.status(200).json({ result: user, token });
     } catch (error) {
         console.error(error);
         res.status(500).send("Error occurred");
     }
 }
-

@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../assets/redux/HomeSlice';
 
-
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -33,6 +32,10 @@ export default function Login() {
 
       if (response.ok) {
         const userData = await response.json();
+
+        // Setting localStorage Item
+        localStorage.setItem('Token', userData.token);
+  
         dispatch(login(userData));
         navigate('/', { state: { signInSuccess: true } });
       } else {
