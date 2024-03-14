@@ -9,9 +9,22 @@ import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import OurTeam from "./pages/OurTeam"
 
+import { useEffect } from "react"
+import { useDispatch } from 'react-redux'
+import { fetchCSBooks, fetchFictionBooks, fetchHealthBooks, fetchSportsBooks } from './assets/redux/HomeSlice'
+// '../assets/redux/HomeSlice';
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCSBooks('Computer Science'));
+    dispatch(fetchFictionBooks('Fiction'));
+    dispatch(fetchHealthBooks('Health'));
+    dispatch(fetchSportsBooks('Sports'));
+  });
 
   return (
     <>

@@ -10,15 +10,14 @@ import { FreeMode, Pagination } from 'swiper/modules';
 import SkeletonHome from './SkeletonHome';
 
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchCSBooks, fetchFictionBooks, fetchHealthBooks, fetchSportsBooks } from '../assets/redux/HomeSlice';
 
 export function SwipeCS() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  // const [cS, setCS] = useState([]); 
   const ComputerScience = useSelector((state) => state.ComputerScience);
+  // setCS(ComputerScience);
 
-  useEffect(() => {
-    dispatch(fetchCSBooks('Computer Science'));
-  });
+  
 
   return (
     <Swiper
@@ -59,12 +58,12 @@ export function SwipeCS() {
 }
 
 export function SwipeFiction() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const Fiction = useSelector((state) => state.Fiction);
 
-  useEffect(() => {
-    dispatch(fetchFictionBooks('Fiction'));
-  });
+  // useEffect(() => {
+  //   dispatch(fetchFictionBooks('Fiction'));
+  // });
 
   return (
     <Swiper
@@ -105,12 +104,12 @@ export function SwipeFiction() {
 }
 
 export function SwipeHealth() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const Health = useSelector((state) => state.Health);
 
-  useEffect(() => {
-    dispatch(fetchHealthBooks('Health'));
-  });
+  // useEffect(() => {
+  //   dispatch(fetchHealthBooks('Health'));
+  // });
 
   return (
     <Swiper
@@ -151,12 +150,12 @@ export function SwipeHealth() {
 }
 
 export function SwipeSports() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const Sports = useSelector((state) => state.Sports);
 
-  useEffect(() => {
-    dispatch(fetchSportsBooks('Sports'));
-  });
+  // useEffect(() => {
+  //   dispatch(fetchSportsBooks('Sports'));
+  // });
 
   return (
     <Swiper
