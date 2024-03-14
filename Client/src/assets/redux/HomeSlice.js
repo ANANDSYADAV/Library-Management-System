@@ -47,7 +47,7 @@ const initialState = {
     Health: [],
     Sports: [],
     mobileMenu: false,
-    user: null
+    
 }
 
 const HomeSlice = createSlice({
@@ -71,7 +71,9 @@ const HomeSlice = createSlice({
 
 const currentUserSlice = createSlice({
     name: 'currentUser',
-    initialState,
+    initialState:{
+        user:null
+    },
     reducers: {
         login: (state, action) => {
             state.user = action.payload;
@@ -79,12 +81,16 @@ const currentUserSlice = createSlice({
         logout: (state) => {
             state.user = null;
         },
+        signUp: (state, action) => {
+            state.user = action.payload;
+        },
     },
 });
 
-export const { login, logout } = currentUserSlice.actions;
+export const { login, logout, signUp } = currentUserSlice.actions;
 
-export const selectCurrentUser = (state) => state.currentUser.user;
+export const selectCurrentUser = (state) => state.currentUser?.user ?? null;
+
 
 export const { reducer: homeReducer } = HomeSlice;
 export const { reducer: currentUserReducer } = currentUserSlice;
