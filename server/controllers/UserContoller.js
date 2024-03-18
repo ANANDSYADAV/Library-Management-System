@@ -13,7 +13,7 @@ exports.getAllUsers = async (req, res) => {
 
 exports.registerUser = async (req, res) => {
     const { name, email, enrollment, registration,
-        department, year, password } = req.body;
+        department, year, password, booksBorrowed } = req.body;
 
     try {
         const existinguser = await User.findOne({ email });
@@ -28,7 +28,8 @@ exports.registerUser = async (req, res) => {
             registration,
             department,
             year,
-            password: hashedPassword
+            password: hashedPassword,
+            booksBorrowed
         });
         const token = jwt.sign(
             { email: createdUser.email, id: createdUser._id },

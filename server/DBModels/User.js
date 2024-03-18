@@ -28,8 +28,12 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    booksBorrowed: {
+        type: Array,
+        required: true,
+        default: []
     }
-
 })
 
 module.exports = mongoose.model("User", userSchema);
